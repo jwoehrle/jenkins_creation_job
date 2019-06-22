@@ -1,15 +1,22 @@
 pipeline {
-    agent none
+    agent any
+    environment {
+        PROJECT_NAME = "myTestProject"
+        GITHUB_API_URL = "https://api.github.com"
+        GITHUB_CREDENTIALS = credentials('github_token')
+    }
     stages {
         stage('Create Github Repo') {
-            agent any
             steps {
                 echo("creating github repo")
+                def request = [:]
+                request << ["name" : PROJECT_NAME]
+                httpRequest( url: "$GITHUB_API_URL/user/repos", authentication: 'github_token', contentType: 'application/json', httpMode: 'POST', requestBody: request)
+
             }
 
         }
         stage('Create Jenkins jobs') {
-            agent any
             steps {
                 echo("creating jenkins jobs")
             }
