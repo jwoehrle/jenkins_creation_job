@@ -9,9 +9,9 @@ pipeline {
         stage('Create Github Repo') {
             steps {
                 echo("creating github repo")
-                def request = [:]
-                request << ["name" : PROJECT_NAME]
-                httpRequest( url: "$GITHUB_API_URL/user/repos", authentication: 'github_token', contentType: 'application/json', httpMode: 'POST', requestBody: request)
+                def request = load('./src/main/groovy/github.groovy')
+
+                httpRequest( url: "$GITHUB_API_URL/user/repos", authentication: 'github_token', contentType: 'application/json', httpMode: 'POST', requestBody: request.createRequest())
 
             }
 
