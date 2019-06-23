@@ -14,7 +14,7 @@ pipeline {
                 script {
                     def request = [:]
                     request << ["name" : PROJECT_NAME]
-                    httpRequest( url: "$GITHUB_API_URL/user/repos", authentication: 'github_token', contentType: 'application/json', httpMode: 'POST', requestBody: request)
+                    httpRequest( url: "$GITHUB_API_URL/user/repos", authentication: 'github_token', contentType: 'APPLICATION_JSON', httpMode: 'POST', requestBody: request)
                 }
 
 
