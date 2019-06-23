@@ -14,7 +14,9 @@ pipeline {
                 script {
                     def request = [:]
                     request << ["name" : PROJECT_NAME]
-                    httpRequest( url: "$GITHUB_API_URL/user/repos", authentication: 'github_token', contentType: 'APPLICATION_JSON', httpMode: 'POST', requestBody: request)
+                    def builder = new groovy.json.JsonBuilder()
+                    builder.name = PROJECT_NAME
+                    httpRequest( url: "$GITHUB_API_URL/user/repos", authentication: 'github_token', contentType: 'APPLICATION_JSON', httpMode: 'POST', requestBody: builder.toString())
                 }
 
 
